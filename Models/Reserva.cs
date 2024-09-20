@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace DesafioProjetoHospedagem.Models
 {
     public class Reserva
@@ -6,8 +8,6 @@ namespace DesafioProjetoHospedagem.Models
         public Suite Suite { get; set; }
         public int DiasReservados { get; set; }
 
-        public Reserva() { }
-
         public Reserva(int diasReservados)
         {
             DiasReservados = diasReservados;
@@ -15,46 +15,66 @@ namespace DesafioProjetoHospedagem.Models
 
         public void CadastrarHospedes(List<Pessoa> hospedes)
         {
-            // TODO: Verificar se a capacidade é maior ou igual ao número de hóspedes sendo recebido
-            // *IMPLEMENTE AQUI*
-            if (true)
-            {
-                Hospedes = hospedes;
-            }
-            else
-            {
-                // TODO: Retornar uma exception caso a capacidade seja menor que o número de hóspedes recebido
-                // *IMPLEMENTE AQUI*
-            }
+
+
+                if (hospedes.Count() <= Suite.Capacidade)
+                {
+
+                    Hospedes = hospedes;
+                    string hospedesSerializados = JsonConvert.SerializeObject(Hospedes, Formatting.Indented);
+                    File.WriteAllText("Arquivos/hospedes.json", hospedesSerializados);
+                    
+                }
+                else
+                {   
+                    try 
+                    {
+                        File.ReadAllText("");
+                    }
+                    catch (Exception)
+                    {
+                        throw new Exception("Capacidade de hospedes excedida");
+                    }
+
+                }
         }
+    
 
         public void CadastrarSuite(Suite suite)
         {
             Suite = suite;
         }
 
-        public int ObterQuantidadeHospedes()
+        public void ObterQuantidadeHospedes()
         {
-            // TODO: Retorna a quantidade de hóspedes (propriedade Hospedes)
-            // *IMPLEMENTE AQUI*
-            return 0;
+            Console.WriteLine($"Você tem {Hospedes.Count()}º Hóspede(s): \n\nSuite: {Suite.TipoSuite}");
+            foreach (Pessoa item in Hospedes)
+            {
+            Console.WriteLine($"Nome: {item.NomeCompleto}");
+            }
         }
 
-        public decimal CalcularValorDiaria()
+        public void CalcularValorDiaria()
         {
-            // TODO: Retorna o valor da diária
-            // Cálculo: DiasReservados X Suite.ValorDiaria
-            // *IMPLEMENTE AQUI*
-            decimal valor = 0;
+            decimal calculo = DiasReservados * Suite.ValorDiaria;
+            decimal valor = calculo;
+            decimal porcentagem = (10 * valor) / 100M;
 
-            // Regra: Caso os dias reservados forem maior ou igual a 10, conceder um desconto de 10%
-            // *IMPLEMENTE AQUI*
-            if (true)
+            if (DiasReservados >= 10)
             {
-                valor = 0;
+                valor = valor - porcentagem;
+                Console.WriteLine( 
+                    
+                    $"\nVocê acabou de Ganha 10% de Desconto por ter Reservado mais de 10 Dias \n" + 
+                    $"Valor total a ser pago pelos {DiasReservados} dias Reservados: {valor:C} \n "
+                
+                );
+            }
+            else
+            {
+                Console.WriteLine($"Valor total a ser pago pelos {DiasReservados} dias Reservados: {valor:C} \n");
             }
 
-            return valor;
         }
     }
 }
