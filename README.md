@@ -1,3 +1,23 @@
+ ### **❗❗❗❗❗ Update ❗❗❗❗❗**
+
+ ### **feat:** Sistema Hospedagem: Hotel: 🏨
+
+- **Incrementado as Funções:** 
+
+    | Cadastrar Hospedes ✔️
+    
+    | Cadastrar Suites ✔️
+
+    | Obter Quantidade de Hospedes e Listar em Console ✔️
+
+    | Calcular o preço há ser pago pela Diaria ✔️
+    
+
+
+- **Extra: Função para dar Desconto de 10% caso se Hospede por mais de 10 dias.** ✅
+
+##
+
 # DIO - Trilha .NET - Explorando a linguagem C#
 www.dio.me
 
